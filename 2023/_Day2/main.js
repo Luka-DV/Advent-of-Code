@@ -1,21 +1,8 @@
 
+"use strict";
+
 const file = document.querySelector("input");
 
-
-/* file.addEventListener("change", () => {
-
-  const fileReader = new FileReader();
-
-  fileReader.readAsText(file.files[0]);
-
-  fileReader.addEventListener("load", () => {
-
-    const textOutput = fileReader.result;
-    const textArray = textOutput.split("\n");
-
-    console.log(findCoordinates(textArray));
-  })
-}); */
 
 file.addEventListener("change", () => {
 
@@ -59,6 +46,34 @@ file.addEventListener("change", () => {
       }
     }
     console.log(gameCounter);
+
+
+    //task 2
+
+    let sumPowerOfSets = 0;
+
+    for(let i = 0; i < textArray.length; i++) { //games
+      let minCubes = [0,0,0]; //blue, green, red
+
+      for(let play of textArray[i]) {  //playes of games
+
+        for(let combo of play) { //combos of playes
+
+            if(combo[1] === "blue" && +combo[0] > minCubes[0]) {
+              minCubes[0] = +combo[0];
+            } else if (combo[1] === "green" && +combo[0] > minCubes[1]) {
+              minCubes[1] = +combo[0];
+            } else if (combo[1] === "red" && +combo[0] > minCubes[2]) {
+              minCubes[2] = +combo[0];
+            }
+          }
+        }
+
+      sumPowerOfSets += minCubes.reduce((acc, crr) => acc * crr ,1);
+
+    }
+
+    console.log(sumPowerOfSets);
 
   };
 
