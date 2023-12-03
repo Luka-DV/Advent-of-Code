@@ -26,9 +26,40 @@ file.addEventListener("change", () => {
   fileReader.onload = function() {
 
     const textOutput = fileReader.result;
-    const textArray = textOutput.split("\n");
+    const textArray = textOutput.split("\n").map(item => {
+      return item.split(";").map(item => {
+        return item.split(",").map(item => {
+          return item.trim().split(" ");
+          }
+        ) 
+      })
+    });
 
-    console.log(findCoordinates(textArray));
+    textArray.forEach(subArray => {
+      subArray[0][0].shift();
+      subArray[0][0].shift();
+    })
+
+    //task 1
+
+    let gameCounter = 0;
+
+    for(let i = 0; i < textArray.length; i++) { //games
+      let isPossible = true;
+      counter: {for(let play of textArray[i] ) {  //playes of games
+        for(let combo of play) { //combos of playes
+            if(!((combo[1] === "blue" && combo[0] < 15) || (combo[1] === "green" && combo[0] < 14) || (combo[1] === "red" && combo[0] < 13))) {
+             isPossible = false;
+             break counter;
+            }
+          }
+        }}
+        if(isPossible) {
+          gameCounter += i+1;
+      }
+    }
+    console.log(gameCounter);
+
   };
 
   fileReader.onerror = function() {
@@ -38,56 +69,5 @@ file.addEventListener("change", () => {
 
 
 
-function findCoordinates(arrayWithWords) {
-
-  console.log(arrayWithWords)
-
-  const array = convertWordsToNums(arrayWithWords); //task 2
-
-  console.log(array);
-
-  let sumOfCalibrationValues = 0;
-
-  for(let item of array) {
-
-    let calibrationValue = "";
-
-    for(let i = 0; i < item.length; i++) {
-      if(!isNaN(item[i])) {
-        calibrationValue += item[i];
-        break;
-      }
-    }
-    for(let i = item.length - 1; i >= 0; i--) {
-      if(!isNaN(item[i])) {
-        calibrationValue += item[i];
-        break;
-      }
-    }
-    sumOfCalibrationValues += Number(calibrationValue);
-  }
-  return sumOfCalibrationValues;
-}
-
-//the result for day 1 task 1 is: 55090
-
-//function for task 2:
-
-function convertWordsToNums(arrayWithWords) {
-
-   return arrayWithWords.map( item => {
-    return item.replaceAll("one", "one1one")
-    .replaceAll("two", "two2two")
-    .replaceAll("three", "three3three")
-    .replaceAll("four", "four4four")
-    .replaceAll("five", "five5five")
-    .replaceAll("six", "six6six")
-    .replaceAll("seven", "seven7seven")
-    .replaceAll("eight", "eight8eight")
-    .replaceAll("nine", "nine9nine")
-  });
-}
-
-//54845
 
 
