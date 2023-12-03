@@ -71,7 +71,7 @@ function findCoordinates(arrayWithWords) {
 
 //the result for day 1 task 1 is: 55090
 
-//task 2
+//function for task 2:
 
 function convertWordsToNums(arrayWithWords) {
 
