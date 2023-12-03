@@ -12,12 +12,18 @@
 /*******************************************/
 img{
   display: block;
+  max-width: 100%;
   margin: 0 auto;
 }
 
 form {
+  padding: 3%;
   display: flex;
   justify-content: center;
+}
+
+h2 {
+  text-align: center;
 }
 
 
